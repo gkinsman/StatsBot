@@ -1,0 +1,77 @@
+﻿
+@using StatsSite.Helpers;
+@using StatsSite.Models
+
+<h2>@ViewBag.Message</h2>
+<div id="stats">
+    <table>
+        <caption>
+            Rhosquad Stats</caption>
+        <colgroup span="5" title="User Stats">
+        </colgroup>
+        <thead>
+            <tr>
+                <th scope="col">
+                </th>
+                <th scope="col">
+                    Username
+                </th>
+                <th scope="col" style="text-align: center">
+                    Line Count
+                </th>
+                <th scope="col" style="text-align: center">
+                    AWPL*
+                </th>
+                <th scope="col">
+                    Random Quote
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @{int i = 1;}
+            @foreach (var user in ViewBag.Stats) {
+                <tr>
+                    <td style="width: 15px; text-align: center">@i
+                    </td>
+                    <td style="width: 40px">@user.Username
+                    </td>
+                    <td style="width: 20px; text-align: center">@user.LineCount
+                    </td>
+                    <td style="width: 20px; text-align: center">@String.Format("{0:0.#}", user.AverageWordsPerLine)
+                    </td>
+                    <td style="width: auto;">@Html.ConvertToLinks((string)@user.RandomLine)
+                    </td>
+                </tr>
+                i++;
+            }
+        </tbody>
+    </table>
+
+    <br/><br/>
+
+    <table>
+        <caption>
+            Recent Topics
+        </caption>
+        <colgroup span="2" title="Recent Topics">
+        </colgroup>
+
+        <thead>
+            <tr>
+                <th scope="col" style="width: 160px">Date Set</th>
+                <th scope="col">Topic Content</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in ViewBag.Topics) {
+            <tr>
+                <td>@item.DateSet</td>
+                <td>@item.TopicContent</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+
+    <br/>
+    <div>AWPL:= Average Words Per Line</div>
+</div>
